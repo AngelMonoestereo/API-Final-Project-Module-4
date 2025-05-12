@@ -1,0 +1,136 @@
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: #f7f7f7;
+  color: #333;
+}
+
+header {
+  background: #2c1444;
+  color: white;
+  padding: 20px 0;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 50px;
+  align-items: center;
+}
+
+.navbar a {
+  color: white;
+  margin-left: 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.hero {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.hero form {
+  margin-top: 20px;
+}
+
+#searchInput {
+  padding: 10px;
+  width: 300px;
+  border-radius: 20px 0 0 20px;
+  border: none;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 0 20px 20px 0;
+  background-color: #6c3bbd;
+  color: white;
+  cursor: pointer;
+}
+
+.filters {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 50px;
+}
+
+main {
+  padding: 0 50px 50px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.record-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.record-card:hover {
+  transform: scale(1.03);
+}
+
+.record-card img {
+  width: 100%;
+  border-radius: 8px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.record-card h3 {
+  margin: 10px 0 5px;
+}
+
+.record-card p {
+  margin: 4px 0;
+  font-size: 0.9rem;
+}
+
+/* Skeleton loading */
+.skeleton {
+  animation: pulse 1.5s infinite;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.skeleton-image {
+  height: 180px;
+  width: 100%;
+  background-color: #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.skeleton-text {
+  height: 16px;
+  background-color: #ccc;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.skeleton-text.short {
+  width: 60%;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
