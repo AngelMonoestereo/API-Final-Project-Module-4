@@ -4,6 +4,9 @@ const recordList = document.getElementById("recordList");
 const searchForm = document.getElementById("searchForm");
 const searchInput = document.getElementById("searchInput");
 const priceRange = document.getElementById("priceRange");
+const sortSelect = document.getElementById("sortSelect");
+
+let currentRecords = []; // ✅ Holds the current set of records for sorting/filtering
 
 function showSkeletons(count = 6) {
   recordList.innerHTML = "";
@@ -19,7 +22,13 @@ function showSkeletons(count = 6) {
   }
 }
 
-function displayRecords(records) {
+function displayRecords(records, sortBy = "") {
+  if (sortBy === "newest") {
+    records.sort((a, b) => (b.year || 0) - (a.year || 0));
+  } else if (sortBy === "oldest") {
+    records.sort((a, b) => (a.year || 0) - (b.year || 0));
+  }
+
   recordList.innerHTML = "";
 
   if (records.length === 0) {
@@ -31,7 +40,7 @@ function displayRecords(records) {
     const card = document.createElement("div");
     card.className = "record-card";
 
-    const price = (Math.random() * 100).toFixed(2); // Fake price
+    const price = (Math.random() * 100).toFixed(2); // Simulated price
     card.dataset.price = price;
 
     card.innerHTML = `
@@ -47,7 +56,7 @@ function displayRecords(records) {
 }
 
 async function fetchRecords(query = "") {
-  showSkeletons(); // Show loading
+  showSkeletons(); // Show loading skeletons
   const url = `${BASE_URL}?q=${encodeURIComponent(query)}&type=release&per_page=6&token=${API_TOKEN}`;
   try {
     const response = await fetch(url, {
@@ -56,13 +65,15 @@ async function fetchRecords(query = "") {
       },
     });
     const data = await response.json();
-    displayRecords(data.results);
+    currentRecords = data.results; // ✅ Save results
+    displayRecords(currentRecords, sortSelect.value); // ✅ Apply current sort
   } catch (error) {
     console.error("Error fetching records:", error);
     recordList.innerHTML = "<p>Failed to load records.</p>";
   }
 }
 
+// Search handler
 searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const query = searchInput.value.trim();
@@ -71,6 +82,12 @@ searchForm.addEventListener("submit", (e) => {
   }
 });
 
+// Sort dropdown handler
+sortSelect.addEventListener("change", () => {
+  displayRecords(currentRecords, sortSelect.value);
+});
+
+// Initial fetch
 window.addEventListener("DOMContentLoaded", () => {
   fetchRecords("vinyl");
 });
