@@ -62,9 +62,21 @@ main {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 🔧 Fix to 3 columns */
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .record-card {
